@@ -111,3 +111,111 @@ school["5б"] = 28
 school.update({"10в": 12})
 school.pop("4г")
 print("Задание №10", school, "Oбщее количество учащихся:", sum(school.values()))
+
+
+#2HARD
+a = 5
+b = 6
+N = 4
+c = ((a + 1) * (b + 1) - a - b - a * b) ** N
+print("ЗаданиеHARD2", c)
+
+#4HARD
+stroka = "My name is TheLastStylebender"
+t_p = tuple(stroka)
+print("ЗаданиеHARD4", t_p.count("e"))
+
+
+#ДОМАШНЕЕ ЗАДАНИЕ №3(task 4)
+
+#1
+A = int(input("A:"))
+B = int(input("B:"))
+C = int(input("C:"))
+if A < 0:
+    print("TRUE")
+elif B < 0:
+    print("TRUE")
+elif C < 0:
+    print("TRUE")
+else:
+    print("FALSE")
+
+#2
+n = int(input("Ввести целое число n:"))
+k = int(input("Ввести целое число k:"))
+if n % 2 == k % 2:
+    print('TRUE')
+else:
+    print("FALSE")
+
+#3
+a = int(input("Ввести целое число a:"))
+b = int(input("Ввести целое число b:"))
+c = int(input("Ввести целое число c:"))
+chet = 0
+if a % 2 == 0:
+    chet += 1
+if b % 2 == 0:
+    chet += 1
+if c % 2 == 0:
+    chet += 1
+print(chet)
+
+#4
+q = int(input("Ввести двузначное число:"))
+c = q // 10
+b = q % 10
+sum = c + b
+if sum > 9:
+    print("ДА")
+else:
+    print("НЕТ")
+
+#5
+for i in range(20):
+    print("10")
+
+#6
+N = int(input("N="))
+for i in range(1, N):
+    print(i ** 3, end = ",")
+
+#7
+c = 1
+for i in range(5, 21):
+    c *= i
+    print(c)
+
+#8
+n = int(input("n="))
+c = 1
+while c ** 2 < n:
+    print(c ** 2)
+    c += 1
+
+#9
+n = int(input("Ввести натуральное число:"))
+min = min(str(n))
+print(min)
+
+
+#10
+year = int(input("Ввести год:"))
+if year % 4 == 0:
+    print("високосный")
+else:
+    print("False")
+
+#11
+n = int(input("Ввести натуральное число:"))
+if n % 10 == 1:
+    print("На лугу", n , "корова")
+elif n % 10 == 2:
+    print("На лугу", n, "коровы")
+elif n % 10 == 3:
+    print("На лугу", n, "коровы")
+elif n % 10 == 4:
+    print("На лугу", n, "коровы")
+else:
+    print("На лугу", n, "коров")
