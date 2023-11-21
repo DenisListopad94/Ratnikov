@@ -111,3 +111,231 @@ school["5б"] = 28
 school.update({"10в": 12})
 school.pop("4г")
 print("Задание №10", school, "Oбщее количество учащихся:", sum(school.values()))
+
+
+#2HARD
+a = 5
+b = 6
+N = 4
+c = ((a + 1) * (b + 1) - a - b - a * b) ** N
+print("ЗаданиеHARD2", c)
+
+#4HARD
+stroka = "My name is TheLastStylebender"
+t_p = tuple(stroka)
+print("ЗаданиеHARD4", t_p.count("e"))
+
+
+#ДОМАШНЕЕ ЗАДАНИЕ №3(task 4)
+
+#1
+A = int(input("A:"))
+B = int(input("B:"))
+C = int(input("C:"))
+if A < 0:
+    print("TRUE")
+elif B < 0:
+    print("TRUE")
+elif C < 0:
+    print("TRUE")
+else:
+    print("FALSE")
+
+#2
+n = int(input("Ввести целое число n:"))
+k = int(input("Ввести целое число k:"))
+if n % 2 == k % 2:
+    print('TRUE')
+else:
+    print("FALSE")
+
+#3
+a = int(input("Ввести целое число a:"))
+b = int(input("Ввести целое число b:"))
+c = int(input("Ввести целое число c:"))
+chet = 0
+if a % 2 == 0:
+    chet += 1
+if b % 2 == 0:
+    chet += 1
+if c % 2 == 0:
+    chet += 1
+print(chet)
+
+#4
+q = int(input("Ввести двузначное число:"))
+c = q // 10
+b = q % 10
+sum = c + b
+if sum > 9:
+    print("ДА")
+else:
+    print("НЕТ")
+
+#5
+for i in range(20):
+    print("10")
+
+#6
+N = int(input("N="))
+for i in range(1, N):
+    print(i ** 3, end = ",")
+
+#7
+c = 1
+for i in range(5, 21):
+    c *= i
+    print(c)
+
+#8
+n = int(input("n="))
+c = 1
+while c ** 2 < n:
+    print(c ** 2)
+    c += 1
+
+#9
+n = int(input("Ввести натуральное число:"))
+min = min(str(n))
+print(min)
+
+
+#10
+year = int(input("Ввести год:"))
+if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
+    print("Високосный")
+else:
+    print("Не високосный")
+
+#11
+n = int(input("Ввести натуральное число:"))
+if n % 10 == 1:
+    print("На лугу", n , "корова")
+elif n % 10 == 2:
+    print("На лугу", n, "коровы")
+elif n % 10 == 3:
+    print("На лугу", n, "коровы")
+elif n % 10 == 4:
+    print("На лугу", n, "коровы")
+else:
+    print("На лугу", n, "коров")
+
+#не получается((
+
+#ДОМАШНЕЕ ЗАДАНИЕ №3(task 5)
+
+#1
+numbers = (6, 2, 7, 8)
+for num in numbers:
+    delit = 0
+    for i in range(1, num):
+        if num % 1 == 0:
+            delit += i
+            if delit == num:
+                print(num)
+#2
+numbers = (5, 2, -2, 7, -8, -9, 1)
+counter = 0
+
+for i in range(len(numbers)):
+    if numbers[i-1] < 0 and numbers[i] >= 0 or numbers[i-1] >= 0 and numbers[i] < 0:
+        counter += 1
+
+print(counter)
+
+#3
+list1 = [4, 1, 6, 9]
+list2 = [8, 1, 2, 4, 9, 5, 7, 6]
+elements = []
+for element in list1:
+    if element not in list2:
+        elements.append(element)
+
+if elements:
+    min_element = min(elements)
+    print(min_element)
+else:
+    print("нет такого элемента")
+
+#4
+l = [12, 33, 39, 11, 46, 78]
+p = []
+for num in l:
+    p.append(num)
+    if num % 2 == 0:
+        num = int(str(num)[::-1])
+        p.append(num)
+print(p)
+
+#5
+a = [5,2,4,5,1,2]
+new_a = set(a)
+counter = 0
+for i in new_a:
+    counter = a.count(i)
+    print(i, counter)
+
+#6
+s_p = [7, 4, 1]
+new_sp = []
+for i in s_p:
+    new_sp.append(i)
+    new_sp.append(0)
+print(new_sp)
+
+#7
+s_0 = '21 212 34 55 66 21'
+number = s_0.split()
+new = set()
+for num in number:
+    if num in new:
+        print("yep")
+    else:
+        new.add(num)
+        print('no')
+
+#9
+synonyms_dict = {
+    'happy': 'funny',
+    'smart': 'intelligent',
+    'fast': 'quick',
+    'big': 'large',
+    'tall': 'high'
+}
+
+
+word_to_find = input("Введите слово, для которого нужно найти синоним: ")
+
+if word_to_find in synonyms_dict:
+    synonym = synonyms_dict[word_to_find]
+    print(word_to_find, synonym)
+else:
+    print("Синоним для слова", word_to_find, "не найден")
+
+
+
+#2
+spis_0 =[5,2,0,-2,-7,1,8,0,-1]
+poz = []
+neg = []
+zero = []
+for i in spis_0:
+    if i > 0:
+        poz.append(i)
+    elif i == 0:
+        zero.append(i)
+    else:
+         neg.append(i)
+
+new_spis = poz + neg + zero
+print(new_spis)
+
+#3
+list_1 = [5,2,7,3,8,2,4,1,6,5]
+list_2 = []
+for i in list_1:
+    if list_1.count(i) == 1:
+        list_2.extend([i, i])
+    else:
+        list_2.append(i)
+print(list_2)
