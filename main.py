@@ -339,3 +339,108 @@ for i in list_1:
     else:
         list_2.append(i)
 print(list_2)
+
+#ДОМАШНЕЕ ЗАДАНИЕ(ФУНКЦИИ ЧАСТЬ 1)
+#1
+def stepen()-> list[int]:
+    '''Функция генерирует список из 10 чисел во второй степени'''
+    a = [i ** 2 for i in range(1,11)]
+    return a
+r_1 = stepen()
+print(r_1)
+
+#2
+def krat()-> list[int]:
+    '''Функция генерирует список из всех трехзначных чисел, которые кратны 3 и 5'''
+    b = [i for i in range(100, 1000) if i % 3 == 0 and i % 5 == 0]
+    return b
+r_2 = krat()
+print(r_2)
+
+#3
+def numbers(a:int,b:int,c:int):
+    '''Функция создает список чисел из промежутка от а до b в степени с'''
+    result = []
+    for num in range(a, b + 1):
+        result.append(num ** c)
+    print(result)
+a, b, c = map(int,input('Введите a b c через пробел: ').split())
+numbers(a,b,c)
+
+#5
+'''
+Напишите функцию, для нахождения минимального элемента из 2 чисел.
+С помощью данной функции найдите минимальное четырёх чисел.
+'''
+def min(var_1: int, var_2: int) -> int:
+    if var_1 < var_2:
+        return var_1
+    else:
+        return var_2
+
+min_two = min(1, 4), min(5, 2)
+print(min_two)
+
+#6
+'''
+Даны четыре действительных числа: x1, y1, x2, y2. Напишите функцию distance(x1, y1, x2, y2),
+вычисляющую расстояние между точкой (x1, y1) и (x2, y2). Считайте четыре действительных числа и
+выведите результат работы этой функции.
+'''
+import math
+def distance(x1: float, y1: float, x2: float, y2: float):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1) **2)
+
+print(distance(2,5,2,3))
+
+#7
+'''
+Напишите функцию fib(n), которая по данному целому неотрицательному n возвращает n-e число Фибоначчи. 
+Ищем число Фиббоначи через цикл! Рекурсию не использовать!
+'''
+def fib(n):
+        a = 0
+        b = 1
+        for _ in range(2, n + 1):
+            a, b = b, a + b
+        return b
+
+print(fib(9))
+
+
+'''
+Напишите реализацию функции closest_mod_5, принимающую в качестве единственного аргумента целое число x 
+и возвращающую самое маленькое целое число y, такое что:
+-y больше или равно x
+-y делится нацело на 5
+'''
+#8
+def closest_mod_5(x):
+    if x % 5 == 0:
+        return x
+    else:
+        return x + (5 - x % 5)
+
+print(closest_mod_5(16))
+
+#9
+'''Функция считывает список чисел, удаляет все нечетные числа, а четные нацело делит на 2'''
+def modify_list(l):
+    l = [i // 2 for i in l if i % 2 == 0]
+    print(l)
+
+modify_list([1,2,3,4,5,6,7,8,9])
+
+#11(доп.)
+'''	*Сгенерировать список всех простых чисел до  100.'''
+def prostoe():
+    return [num for num in range(2, 101) if all(num % i != 0 for i in range(2, num))]
+
+p = prostoe()
+print(p)
+
+
+#(ФУНКЦИИ ЧАСТЬ 2)
+
+
+
