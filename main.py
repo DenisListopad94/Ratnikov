@@ -442,5 +442,121 @@ print(p)
 
 #(ФУНКЦИИ ЧАСТЬ 2)
 
+#1
+'''Создайте lambda-функцию для нахождения подстроки в введённой строке.'''
+find_podstr = lambda main_str, podstr: podstr in main_str
+main_str = (input("Ввести строку:"))
+podstr = (input("Ввести подстроку:"))
 
+f_p = find_podstr(main_str, podstr)
+print(f_p)
+
+#2
+'''	Проверьте число на чётность с помощью анонимной функции.'''
+chet = lambda x: x % 2 == 0
+number = int(input("Введите число:"))
+check = chet(number)
+print(check)
+
+#3
+'''
+Напишите lambda-функцию, которая будет приветствовать пользователя 
+имя которого введено корректно, с большой буквы.
+Иначе будет выводить сообщение о неверно введённом имени.
+'''
+hello = lambda name: f"Привет, {name}!" if name and name.istitle() else "Неверно введено имя."
+user_name = input("Введите ваше имя: ")
+result = hello(user_name)
+print(result)
+
+#4
+'''
+Напишите рекурсивную функцию digits(n), 
+которая принимает натуральное число и возвращает строку
+с цифрамиэ того числа справа налево, разделяя их пробелами.
+'''
+def digits(n):
+    if n < 10:
+        return str(n)
+    else:
+        return str(n % 10) + " " + digits(n // 10)
+
+
+result = digits(123456)
+print(result)
+
+#5
+'''
+Напишите рекурсивную функцию is_power(n), 
+которая возвращает True, если переданное натуральное число
+является степенью двойки, и False иначе
+'''
+def is_power(n):
+    if n == 1:
+        return True
+    elif n % 2 != 0 or n < 1:
+        return False
+    else:
+        return is_power(n // 2)
+
+ret = is_power(18)
+print(ret)
+
+#6
+'''Дано натуральное число N. Вычислите сумму его цифр'''
+def nchislo(n):
+    schet = 0
+    while n > 0:
+       num = n % 10
+       schet += num
+       n //= 10
+    return schet
+
+number = nchislo(3456)
+print(number)
+
+#7
+'''
+Дана функция, которая выводит все простые числа в промежутке от 1 до 100. 
+Написать декоратор который будет проверять время работы этой функции.
+Задекорировать функцию. Вывести вpемя работы этой функции, а так же сами простые числа.
+'''
+import datetime
+def time(func):
+    def wrapper(*args, **kwargs):
+        start_time = datetime.datetime.now()
+        result = func(*args, **kwargs)
+        end_time = datetime.datetime.now()
+        time = end_time - start_time
+        print(f"Время работы функции: {time}")
+        return result
+    return wrapper
+
+@time
+def prostoe():
+    return [num for num in range(2, 101) if all(num % i != 0 for i in range(2, num))]
+
+print(prostoe())
+#8
+'''
+Дана функция, которая проверяет введённый пользователем пароль.
+Задекорировать её так, чтобы при правильно введённом пароле
+она приветствовала пользователя.
+'''
+def password_decorator(func):
+    def wrapper(password):
+        correct_password = "stylebender"
+        if password == correct_password:
+            print("Пароль введен верно.")
+            func(password)
+        else:
+            print("Неверный пароль. Вход запрещен.")
+    return wrapper
+
+@password_decorator
+def greet_user(password):
+    print("Привет, пользователь!")
+
+user_input = input("Введите пароль: ")
+greet_user(password=user_input)
 
