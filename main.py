@@ -339,3 +339,224 @@ for i in list_1:
     else:
         list_2.append(i)
 print(list_2)
+
+#ДОМАШНЕЕ ЗАДАНИЕ(ФУНКЦИИ ЧАСТЬ 1)
+#1
+def stepen()-> list[int]:
+    '''Функция генерирует список из 10 чисел во второй степени'''
+    a = [i ** 2 for i in range(1,11)]
+    return a
+r_1 = stepen()
+print(r_1)
+
+#2
+def krat()-> list[int]:
+    '''Функция генерирует список из всех трехзначных чисел, которые кратны 3 и 5'''
+    b = [i for i in range(100, 1000) if i % 3 == 0 and i % 5 == 0]
+    return b
+r_2 = krat()
+print(r_2)
+
+#3
+def numbers(a:int,b:int,c:int):
+    '''Функция создает список чисел из промежутка от а до b в степени с'''
+    result = []
+    for num in range(a, b + 1):
+        result.append(num ** c)
+    print(result)
+a, b, c = map(int,input('Введите a b c через пробел: ').split())
+numbers(a,b,c)
+
+#5
+'''
+Напишите функцию, для нахождения минимального элемента из 2 чисел.
+С помощью данной функции найдите минимальное четырёх чисел.
+'''
+def min(var_1: int, var_2: int) -> int:
+    if var_1 < var_2:
+        return var_1
+    else:
+        return var_2
+
+min_two = min(1, 4), min(5, 2)
+print(min_two)
+
+#6
+'''
+Даны четыре действительных числа: x1, y1, x2, y2. Напишите функцию distance(x1, y1, x2, y2),
+вычисляющую расстояние между точкой (x1, y1) и (x2, y2). Считайте четыре действительных числа и
+выведите результат работы этой функции.
+'''
+import math
+def distance(x1: float, y1: float, x2: float, y2: float):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1) **2)
+
+print(distance(2,5,2,3))
+
+#7
+'''
+Напишите функцию fib(n), которая по данному целому неотрицательному n возвращает n-e число Фибоначчи. 
+Ищем число Фиббоначи через цикл! Рекурсию не использовать!
+'''
+def fib(n):
+        a = 0
+        b = 1
+        for _ in range(2, n + 1):
+            a, b = b, a + b
+        return b
+
+print(fib(9))
+
+
+'''
+Напишите реализацию функции closest_mod_5, принимающую в качестве единственного аргумента целое число x 
+и возвращающую самое маленькое целое число y, такое что:
+-y больше или равно x
+-y делится нацело на 5
+'''
+#8
+def closest_mod_5(x):
+    if x % 5 == 0:
+        return x
+    else:
+        return x + (5 - x % 5)
+
+print(closest_mod_5(16))
+
+#9
+'''Функция считывает список чисел, удаляет все нечетные числа, а четные нацело делит на 2'''
+def modify_list(l):
+    l = [i // 2 for i in l if i % 2 == 0]
+    print(l)
+
+modify_list([1,2,3,4,5,6,7,8,9])
+
+#11(доп.)
+'''	*Сгенерировать список всех простых чисел до  100.'''
+def prostoe():
+    return [num for num in range(2, 101) if all(num % i != 0 for i in range(2, num))]
+
+p = prostoe()
+print(p)
+
+
+#(ФУНКЦИИ ЧАСТЬ 2)
+
+#1
+'''Создайте lambda-функцию для нахождения подстроки в введённой строке.'''
+find_podstr = lambda main_str, podstr: podstr in main_str
+main_str = (input("Ввести строку:"))
+podstr = (input("Ввести подстроку:"))
+
+f_p = find_podstr(main_str, podstr)
+print(f_p)
+
+#2
+'''	Проверьте число на чётность с помощью анонимной функции.'''
+chet = lambda x: x % 2 == 0
+number = int(input("Введите число:"))
+check = chet(number)
+print(check)
+
+#3
+'''
+Напишите lambda-функцию, которая будет приветствовать пользователя 
+имя которого введено корректно, с большой буквы.
+Иначе будет выводить сообщение о неверно введённом имени.
+'''
+hello = lambda name: f"Привет, {name}!" if name and name.istitle() else "Неверно введено имя."
+user_name = input("Введите ваше имя: ")
+result = hello(user_name)
+print(result)
+
+#4
+'''
+Напишите рекурсивную функцию digits(n), 
+которая принимает натуральное число и возвращает строку
+с цифрамиэ того числа справа налево, разделяя их пробелами.
+'''
+def digits(n):
+    if n < 10:
+        return str(n)
+    else:
+        return str(n % 10) + " " + digits(n // 10)
+
+
+result = digits(123456)
+print(result)
+
+#5
+'''
+Напишите рекурсивную функцию is_power(n), 
+которая возвращает True, если переданное натуральное число
+является степенью двойки, и False иначе
+'''
+def is_power(n):
+    if n == 1:
+        return True
+    elif n % 2 != 0 or n < 1:
+        return False
+    else:
+        return is_power(n // 2)
+
+ret = is_power(18)
+print(ret)
+
+#6
+'''Дано натуральное число N. Вычислите сумму его цифр'''
+def nchislo(n):
+    schet = 0
+    while n > 0:
+       num = n % 10
+       schet += num
+       n //= 10
+    return schet
+
+number = nchislo(3456)
+print(number)
+
+#7
+'''
+Дана функция, которая выводит все простые числа в промежутке от 1 до 100. 
+Написать декоратор который будет проверять время работы этой функции.
+Задекорировать функцию. Вывести вpемя работы этой функции, а так же сами простые числа.
+'''
+import datetime
+def time(func):
+    def wrapper(*args, **kwargs):
+        start_time = datetime.datetime.now()
+        result = func(*args, **kwargs)
+        end_time = datetime.datetime.now()
+        time = end_time - start_time
+        print(f"Время работы функции: {time}")
+        return result
+    return wrapper
+
+@time
+def prostoe():
+    return [num for num in range(2, 101) if all(num % i != 0 for i in range(2, num))]
+
+print(prostoe())
+#8
+'''
+Дана функция, которая проверяет введённый пользователем пароль.
+Задекорировать её так, чтобы при правильно введённом пароле
+она приветствовала пользователя.
+'''
+def password_decorator(func):
+    def wrapper(password):
+        correct_password = "stylebender"
+        if password == correct_password:
+            print("Пароль введен верно.")
+            func(password)
+        else:
+            print("Неверный пароль. Вход запрещен.")
+    return wrapper
+
+@password_decorator
+def greet_user(password):
+    print("Привет, пользователь!")
+
+user_input = input("Введите пароль: ")
+greet_user(password=user_input)
+
