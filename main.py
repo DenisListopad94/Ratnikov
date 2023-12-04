@@ -560,3 +560,160 @@ def greet_user(password):
 user_input = input("Введите пароль: ")
 greet_user(password=user_input)
 
+
+#ДОМАШНЕЕ ЗАДАНИЕ(TASK_8)
+#1
+'''
+Имеется текстовый файл. Получить текст, в котором в конце каждой
+строки из заданного файла добавлен восклицательный знак.
+'''
+
+with open('ex1.txt', "r", encoding='utf-8') as file:
+    lines = file.readlines()
+
+new_lines = [line.strip() for line in lines if "!" in line]
+
+for line in new_lines:
+    print(line)
+
+#2
+"""
+Создать файл input.txt и записать в него 10 чисел через пробел. 
+Считать из него эти числа. Затем записать их произведение в файл output.txt.
+"""
+with open('input.txt', 'w') as i_file:
+    numbers = " ".join(map(str, range(1, 11)))
+    i_file.write(numbers)
+
+with open('input.txt', 'r') as i_file:
+    new = i_file.readline()
+    new_num = list(map(int, new.split()))
+
+num = 1
+for i in new_num:
+    num *= i
+
+with open('output.txt', 'w') as o_file:
+    o_file.write(str(num))
+
+#3
+"""
+Список товаров, имеющихся на складе, включает в себя наименование товара, количество единиц товара, 
+цену единицы и дату поступления товара на склад.
+Вывести список товаров, хранящихся больше месяца и стоимость которых превышает 1 000 000 р.
+"""
+from datetime import datetime
+
+products_list = [
+    {"Наименование": "Товар1", "Количество": 100, "Цена за единицу": 1000, "Дата поступления": "2023-01-15"},
+    {"Наименование": "Товар2", "Количество": 50, "Цена за единицу": 30000, "Дата поступления": "2023-12-20"},
+    {"Наименование": "Товар3", "Количество": 150, "Цена за единицу": 2500000, "Дата поступления": "2023-02-20"},
+    {"Наименование": "Товар4", "Количество": 50, "Цена за единицу": 3000000, "Дата поступления": "2023-02-20"},
+    {"Наименование": "Товар5", "Количество": 250, "Цена за единицу": 30000, "Дата поступления": "2023-12-20"},
+]
+
+current_date = datetime.now()
+
+with open("file.txt", "w", encoding='utf-8') as t_file:
+     new = t_file.write(str(products_list))
+
+
+filtered_products = [
+    product for product in products_list
+    if (current_date - datetime.strptime(product["Дата поступления"], "%Y-%m-%d")).days > 30
+    and product["Количество"] * product["Цена за единицу"] > 1000000
+]
+
+
+for item in filtered_products:
+    print(item)
+
+#4
+import json
+
+new_dict = { 12345: ("Vlad", 21),
+             54321: ("Dima", 23),
+             22334: ("Arthur", 25),
+             88134: ("Kate", 19),
+             73453: ("Lina", 22)
+}
+
+with open("file.json", "w") as j_file:
+    json.dump(new_dict, j_file)
+
+#5
+"""
+Прочитать сохранённый json – файл и записать данные на диск в csv файл. 
+Первое значение каждой строки должно начинаться со слова person, значения разделить 
+"""
+import json
+import csv
+
+with open("file.json", "r") as j2_file:
+    read_j = json.load(j2_file)
+
+csv_file_path = 'file.csv'
+with open(csv_file_path, "w", encoding='utf-8') as cs_file:
+    write_csv = csv.writer(cs_file, delimiter=',')
+
+
+    for key, value in read_j.items():
+        write_csv.writerow(['person', key] + list(value))
+
+#6
+""" Опишите конструкцию отлова ошибок, так чтобы выводило, какую ошибку вы сделали."""
+try:
+    x = (1, 2, 5, 7)
+    x = x / 2
+    print(x)
+
+except Exception as e:
+    print(e)
+
+#7
+"""
+Напишите программу которые будет ловить IndexError,
+когда вы пытаетесь взять индекс элемента, которого нет в списке.
+"""
+
+try:
+    spisok = [1, 2, 3, 4]
+    print(spisok[4])
+except IndexError:
+    print("Ошибка IndexError")
+
+#8
+"""
+Напишите программу которые будет ловить TypeError,
+когда вы пытаетесь скаткатенировать строку и число.
+"""
+
+try:
+    st = "Sheeesh" + 44
+    print(st)
+except TypeError:
+    print("Ошибка TypeError")
+
+#9
+'''
+Напишите программу которые будет ловить FileNotFoundError, 
+когда вы пытаетесь открыть файл для чтения, которого не существует.
+'''
+
+try:
+    with open("nofile.txt", "r") as file:
+        files = file.readline()
+except FileNotFoundError:
+    print("Ошибка FileNotFoundError")
+
+#10
+'''
+Дан список. Пользователь не знает его размер.
+Программа должна бросить исключение TypeError,
+когда пользователь пытается удалить элемент которого нет в списке
+'''
+
+spis_2 = [21, 2, 3, 45, 54, 32, 1]
+element = int(input("Введите элемент для удаления:"))
+if element not in spis_2:
+    raise TypeError
