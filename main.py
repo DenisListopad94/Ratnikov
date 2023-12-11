@@ -717,3 +717,145 @@ spis_2 = [21, 2, 3, 45, 54, 32, 1]
 element = int(input("Введите элемент для удаления:"))
 if element not in spis_2:
     raise TypeError
+
+
+#ДОМАШНЕЕ ЗАДАНИЕ(TASK_9)
+
+#1
+'''
+Создать класс с двумя переменными. Добавить функцию вывода на экран и функцию изменения этих переменных.
+Добавить функцию, которая находит сумму значений этих переменных,
+и функцию которая находит наибольшее значение из этих двух переменных.
+'''
+
+class Numbers:
+    def __init__(self, a: int, b: int):
+        self.a = a
+        self.b = b
+
+    def printf(self):
+        print(f"a = {self.a}")
+        print(f"b = {self.b}")
+
+    def changes(self):
+        if self.a > 0 and self.b > 0:
+            print(self.a + 6, self.b + 9)
+
+    def summa(self):
+        print(f"Сумма чисел {self.a + self.b}")
+
+    def maxz(self):
+        if (self.a > self.b):
+            print(f"max = {self.a}")
+        else:
+            print(f"max = {self.b}")
+
+
+m = Numbers(1, 2)
+m.printf()
+m.changes()
+m.summa()
+m.maxz()
+
+#2
+'''
+Описать класс, реализующий десятичный счетчик,
+который может увеличивать или уменьшать свое значение на единицу в заданном диапазоне. 
+Предусмотреть инициализацию счетчика значениями по умолчанию и произвольными значениями.
+Счетчик имеет два метода: увеличения и уменьшения, — и свойство, позволяющее получить его текущее состояние. 
+Написать программу, демонстрирующую все возможности класса.
+'''
+class Counter:
+    def __init__(self, minimum=0, maximum=10, value=8):
+        self.minimum = minimum
+        self.maximum = maximum
+        self.value = value if value is not None else minimum
+
+    def defaultnum(self):
+        print(f"Текущее значение {self.value}")
+
+    def high(self):
+        self.value = min(self.value + 1, self.maximum)
+        print(f"увеличение {self.value}")
+
+    def low(self):
+        self.value = max(self.value - 1, self.minimum)
+        print(f"уменьшение {self.value}")
+
+counter_custom = Counter()
+counter_custom.defaultnum()
+counter_custom.high()
+counter_custom.low()
+
+
+#3
+'''
+Реализуйте класс Shop. Предусмотреть возможность работы с произвольным числом продуктов, 
+поиска продуктов по названию, добавления их в магазин и удаления продуктов из него.
+'''
+class Shop:
+    def __init__(self):
+        self.products = []
+
+    def addprod(self, product_name):
+        self.products.append(product_name)
+        print(f"{product_name} добавлен в магазин")
+
+    def searchprod(self, product_name):
+        if product_name in self.products:
+            print(f"{product_name} найден в магазине.")
+        else:
+            print(f"{product_name} не найден в магазине.")
+
+    def delprod(self, product_name):
+        if product_name in self.products:
+            self.products.remove(product_name)
+            print(f"{product_name} удален из магазина.")
+
+
+
+shop = Shop()
+
+shop.addprod("Яблоко")
+shop.addprod("Молоко")
+shop.addprod("Хлеб")
+
+shop.searchprod("Молоко")
+shop.searchprod("Масло")
+
+shop.delprod("Молоко")
+
+#4
+"""
+Реализуйте класс MoneyBox, для работы с виртуальной копилкой. 
+Каждая копилка имеет ограниченную вместимость, которая выражается целым числом – количеством монет,
+которые можно положить в копилку. Класс должен поддерживать информацию о количестве монет в копилке, 
+предоставлять возможность добавлять монеты в копилку и узнавать, 
+можно ли добавить в копилку ещё какое-то количество монет,
+не превышая ее вместимость. 
+"""
+
+class MoneyBox:
+    def __init__(self, capacity: int = 10):
+        self.capacity = capacity
+        self.coins_inside = 0
+
+    def can_add(self, v):
+        return self.coins_inside + v <= self.capacity
+
+    def add(self, v):
+        if self.can_add(v):
+            self.coins_inside += v
+            print(f"Добавлено {v} монет. Текущее количество монет: {self.coins_inside}")
+        else:
+            print("Невозможно добавить указанное количество монет.")
+
+
+cash = MoneyBox()
+cash.add(5)
+cash.add(6)
+
+#ДОМАШНЕЕ ЗАДАНИЕ(TASK_10)
+
+
+
