@@ -856,6 +856,204 @@ cash.add(5)
 cash.add(6)
 
 #ДОМАШНЕЕ ЗАДАНИЕ(TASK_10)
+# 1
+'''
+Создайте систему управления задачами с использованием классов.
+Реализуйте классы "Task", "Project" и "ProjectManager". Каждая задача должна содержать описание,
+статус (выполнена или нет) и срок выполнения.
+Проект должен включать в себя список задач и методы для добавления новой задачи,
+отметки задачи как выполненной и вывода списка всех задач.
+'''
 
+
+class Task:
+    def __init__(self, description, status, deadline):
+        self.description = description
+        self.status = status
+        self.deadline = deadline
+
+    def get_info(self):
+        print("Описание:", self.description, ". Cтатус:", self.status, ". Срок выполнения:", self.deadline)
+
+
+class Project:
+    def __init__(self, name):
+        self.name = name
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def done_or_not(self, task_description):
+        for task in self.tasks:
+            if task.description == task_description:
+                print(f"Задача {task_description} выполнена")
+            else:
+                print("Задача не выполнена")
+
+    def show_tasks(self):
+        for task in self.tasks:
+            print(task)
+
+
+class ProjectManager:
+    def __init__(self):
+        self.projects = []
+
+    def create_project(self, project_name):
+        project = Project(project_name)
+        self.projects.append(project)
+        print(f"Создан новый проект: '{project_name}'.")
+
+
+project = ProjectManager()
+project.create_project("ЗАДАНИЕ_1")
+n_1 = Task("New project for our company", "Active", "02.02.2024")
+n_1.get_info()
+
+# 2
+"""
+Создайте систему для управления бронированием билетов в авиакомпании. 
+Реализуйте классы "Passenger", "Ticket", "Flight" и "Airline ". Каждый пассажир должен иметь атрибуты, 
+такие как имя и фамилия. Билет должен содержать информацию о пассажире и маршруте полета. 
+Рейс должен включать в себя список зарезервированных билетов.
+Авиакомпания должна иметь методы для бронирования билета, отмены брони и отображения списка зарезервированных билетов.
+"""
+
+class Passenger:
+    def __init__(self, name, surname):
+        self.name = name
+        self.surname = surname
+
+    def get_info(self):
+        print("Информация о пассажире:", self.name, self.surname)
+
+
+class Ticket(Passenger):
+    def __init__(self, name, surname, flight_route):
+        super(Ticket, self).__init__(name, surname)
+        self.flight_route = flight_route
+
+    def get_info(self):
+        super().get_info()
+        print("Информация о маршруте полета:", self.flight_route)
+
+
+class Airline(Ticket):
+    def __init__(self, name, surname, flight_route):
+        super(Airline, self).__init__(name, surname, flight_route)
+        self.tickets = []
+
+    def add_ticket(self, ticket):
+        self.tickets.append(ticket)
+
+    def delete_ticket(self, ticket):
+        self.tickets.remove(ticket)
+
+    def get_info(self):
+        super().get_info()
+        print(self.tickets)
+
+    def list_ticket(self):
+        print("Список зарезервированных билетов:", self.tickets)
+
+
+class Flight(Airline):
+    def __init__(self, name, surname, flight_route):
+        super(Flight, self).__init__(name, surname, flight_route)
+        self.tickets = []
+
+    def add_ticket(self, ticket):
+        self.tickets.append(ticket)
+
+    def delete_ticket(self, ticket):
+        self.tickets.remove(ticket)
+
+    def list_ticket(self):
+        print("Список зарезервированных билетов:", self.tickets)
+
+
+inf = Airline('Vlad', "Ratnikov", 'From Belarus to Russia')
+inf.add_ticket("Ticket1")
+inf.get_info()
+inf.list_ticket()
+
+# 3
+"""
+Создать абстрактный класс «Alive». Определить наследуемые классы – «Fox», «Rabbit» и «Plant».
+Лисы едят кроликов. Кролики едят растения. Растение поглощают солнечный свет.
+Представители каждого класса могут умереть, если достигнут определенного возраста или для них не будет еды.
+Напишите виртуальные методы поедания и определения состояния живых существа
+(живые или нет, в зависимости от достижения предельного возраста и наличия еды (входной параметр)).
+"""
+
+from abc import ABC, abstractmethod
+
+
+class Alive(ABC):
+    def __init__(self, age):
+        self.age = age
+        self.alive = True
+
+    @abstractmethod
+    def eat(self, food_available):
+        pass
+
+    def check_status(self, food_available):
+        if self.age >= self.max_age or not food_available:
+            self.alive = False
+            print(f"{self.__class__.__name__} больше не живет.")
+        else:
+            print(f"{self.__class__.__name__} живет.")
+
+
+class Fox(Alive):
+    def __init__(self, age):
+        super().__init__(age)
+        self.max_age = 5
+
+    def eat(self, food_available):
+        if food_available:
+            print("Лиса ест кролика.")
+        else:
+            print("Для лисы нет еды.")
+
+
+class Rabbit(Alive):
+    def __init__(self, age):
+        super().__init__(age)
+        self.max_age = 3
+
+    def eat(self, food_available):
+        if food_available:
+            print("Кролик ест растение.")
+        else:
+            print("Для кролика нет еды.")
+
+
+class Plant(Alive):
+    def __init__(self, age):
+        super().__init__(age)
+        self.max_age = 2
+
+    def eat(self, food_available):
+        if food_available:
+            print("Растение поглащают солнечный свет.")
+        else:
+            print("Для растения нет солнечного света.")
+
+
+fox = Fox(age=3)
+rabbit = Rabbit(age=2)
+plants = Plant(age=1)
+
+fox.eat(food_available=True)
+fox.check_status(food_available=True)
+
+rabbit.eat(food_available=True)
+rabbit.check_status(food_available=True)
+
+plants.eat(food_available=False)
+plants.check_status(food_available=False)
 
 
