@@ -1056,4 +1056,151 @@ rabbit.check_status(food_available=True)
 plants.eat(food_available=False)
 plants.check_status(food_available=False)
 
+#ДОМАШНЯЯ РАБОТА(TASK_11)
+#1
+"""
+Напишите функцию fib, которая будет выводить последовательно каждое число Фиббоначи.
+"""
+def fib_generator(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+fib = list(fib_generator(10))
+print(fib)
+
+#2
+"""
+Напишите функцию simple, которая будет выводить поочерёдно простые числа
+от 2 до введённого числа n до вызова исключения.
+"""
+def simple(p):
+    current_number = 2
+    while current_number <= p:
+        if all(current_number % i != 0 for i in range(2, int(current_number**0.5) + 1)):
+            yield current_number
+        current_number += 1
+try:
+    for prime_number in simple(20):
+        print(prime_number, end=" ")
+except StopIteration as e:
+    pass
+
+#3
+"""
+Напишите генератор для вывода всех совершенных чисел до 1000000000.
+"""
+
+def generator(n):
+    number = 2
+    while number <= n:
+        divisors_sum = sum(i for i in range(1, number) if number % i == 0)
+        if divisors_sum == number:
+            yield number
+        number += 1
+
+for perfect_number in generator(1000000000):
+    print(perfect_number, end=" ")
+
+#4
+"""
+Исключить из строки группы символов, расположенные между первыми символами '{' и '}' вместе со скобками.
+Если нет символа '}', то исключить все символы до конца строки после '{'.
+Вывести символ, наиболее часто встречающийся в строке.
+"""
+from collections import Counter
+
+def process_string(our_str):
+     open = our_str.find('{')
+     close = our_str.find('}', open)
+
+     if open != -1 and close != -1:
+         new_str = our_str[:open] + our_str[close + 1:]
+     elif open != -1:
+         new_str = our_str[:open]
+     else:
+         new_str = our_str
+
+     new_our_str = new_str.replace(" ", "")
+     ct = Counter(new_our_str)
+     most_common = ct.most_common(1)
+
+     return new_str, most_common
+
+i_s = "Hello {don't} play {with} me."
+result, most_common = process_string(i_s)
+
+print("Строка:", result)
+print("Cимвол часто встречающийся в строке и сколько раз:", most_common)
+
+#6
+"""
+Используя list comprehension. Сгенерируйте список как показано ниже:
+
+1    1    1    1     1    1
+1    2    3    4     5    6
+1    3    6   10  15    21
+1   4   10   20  35    56
+1   6   21   56  126  252
+"""
+
+rows = 5
+cols = 6
+
+matrix = [[1 if j == 1 else 1 for j in range(cols)] for _ in range(rows)]
+
+for i in range(1, rows):
+    for j in range(1, cols):
+        matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
+
+for row in matrix:
+    print(row)
+
+
+#7
+"""
+Коля понял, что у многих из его знакомых есть несколько телефонных номеров
+и нельзя хранить только один из них. Он попросил доработать Вашу программу так, 
+чтобы можно было добавлять к существующему контакту новый номер или даже несколько номеров, 
+которые передаются через запятую. По запросу телефонного номера должен выводиться весь список номеров
+в порядке добавления, номера должны разделяться запятой. 
+Если у контакта нет телефонных номеров, должна выводиться строка "Не найдено".
+"""
+
+class Contact:
+    def __init__(self):
+        self.phone_numbers = []
+
+    def add_phone_numbers(self, numbers):
+        new_numbers = [number.strip() for number in numbers.split(",")]
+        self.phone_numbers.extend(new_numbers)
+
+    def get_phone_numbers(self):
+        if not self.phone_numbers:
+            return "Не найдено"
+        return ", ".join(self.phone_numbers)
+
+
+contacts = {}
+
+while True:
+    name = input("Введите имя контакта (или 'exit' для завершения): ")
+
+    if name.lower() == 'exit':
+        break
+
+    if name not in contacts:
+        contacts[name] = Contact()
+
+    action = input("Выберите действие: 1) Добавить номер, 2) Получить номера: ")
+
+    if action == '1':
+        numbers_to_add = input("Введите номер через запятую: ")
+        contacts[name].add_phone_numbers(numbers_to_add)
+    elif action == '2':
+        phone_numbers = contacts[name].get_phone_numbers()
+        print(f"Телефонные номера для контакта {name}: {phone_numbers}")
+    else:
+        print("Некорректное действие. Повторите ввод.")
 
