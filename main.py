@@ -717,3 +717,490 @@ spis_2 = [21, 2, 3, 45, 54, 32, 1]
 element = int(input("Введите элемент для удаления:"))
 if element not in spis_2:
     raise TypeError
+
+
+#ДОМАШНЕЕ ЗАДАНИЕ(TASK_9)
+
+#1
+'''
+Создать класс с двумя переменными. Добавить функцию вывода на экран и функцию изменения этих переменных.
+Добавить функцию, которая находит сумму значений этих переменных,
+и функцию которая находит наибольшее значение из этих двух переменных.
+'''
+
+class Numbers:
+    def __init__(self, a: int, b: int):
+        self.a = a
+        self.b = b
+
+    def printf(self):
+        print(f"a = {self.a}")
+        print(f"b = {self.b}")
+
+    def changes(self):
+        if self.a > 0 and self.b > 0:
+            print(self.a + 6, self.b + 9)
+
+    def summa(self):
+        print(f"Сумма чисел {self.a + self.b}")
+
+    def maxz(self):
+        if (self.a > self.b):
+            print(f"max = {self.a}")
+        else:
+            print(f"max = {self.b}")
+
+
+m = Numbers(1, 2)
+m.printf()
+m.changes()
+m.summa()
+m.maxz()
+
+#2
+'''
+Описать класс, реализующий десятичный счетчик,
+который может увеличивать или уменьшать свое значение на единицу в заданном диапазоне. 
+Предусмотреть инициализацию счетчика значениями по умолчанию и произвольными значениями.
+Счетчик имеет два метода: увеличения и уменьшения, — и свойство, позволяющее получить его текущее состояние. 
+Написать программу, демонстрирующую все возможности класса.
+'''
+class Counter:
+    def __init__(self, minimum=0, maximum=10, value=8):
+        self.minimum = minimum
+        self.maximum = maximum
+        self.value = value if value is not None else minimum
+
+    def defaultnum(self):
+        print(f"Текущее значение {self.value}")
+
+    def high(self):
+        self.value = min(self.value + 1, self.maximum)
+        print(f"увеличение {self.value}")
+
+    def low(self):
+        self.value = max(self.value - 1, self.minimum)
+        print(f"уменьшение {self.value}")
+
+counter_custom = Counter()
+counter_custom.defaultnum()
+counter_custom.high()
+counter_custom.low()
+
+
+#3
+'''
+Реализуйте класс Shop. Предусмотреть возможность работы с произвольным числом продуктов, 
+поиска продуктов по названию, добавления их в магазин и удаления продуктов из него.
+'''
+class Shop:
+    def __init__(self):
+        self.products = []
+
+    def addprod(self, product_name):
+        self.products.append(product_name)
+        print(f"{product_name} добавлен в магазин")
+
+    def searchprod(self, product_name):
+        if product_name in self.products:
+            print(f"{product_name} найден в магазине.")
+        else:
+            print(f"{product_name} не найден в магазине.")
+
+    def delprod(self, product_name):
+        if product_name in self.products:
+            self.products.remove(product_name)
+            print(f"{product_name} удален из магазина.")
+
+
+
+shop = Shop()
+
+shop.addprod("Яблоко")
+shop.addprod("Молоко")
+shop.addprod("Хлеб")
+
+shop.searchprod("Молоко")
+shop.searchprod("Масло")
+
+shop.delprod("Молоко")
+
+#4
+"""
+Реализуйте класс MoneyBox, для работы с виртуальной копилкой. 
+Каждая копилка имеет ограниченную вместимость, которая выражается целым числом – количеством монет,
+которые можно положить в копилку. Класс должен поддерживать информацию о количестве монет в копилке, 
+предоставлять возможность добавлять монеты в копилку и узнавать, 
+можно ли добавить в копилку ещё какое-то количество монет,
+не превышая ее вместимость. 
+"""
+
+class MoneyBox:
+    def __init__(self, capacity: int = 10):
+        self.capacity = capacity
+        self.coins_inside = 0
+
+    def can_add(self, v):
+        return self.coins_inside + v <= self.capacity
+
+    def add(self, v):
+        if self.can_add(v):
+            self.coins_inside += v
+            print(f"Добавлено {v} монет. Текущее количество монет: {self.coins_inside}")
+        else:
+            print("Невозможно добавить указанное количество монет.")
+
+
+cash = MoneyBox()
+cash.add(5)
+cash.add(6)
+
+#ДОМАШНЕЕ ЗАДАНИЕ(TASK_10)
+# 1
+'''
+Создайте систему управления задачами с использованием классов.
+Реализуйте классы "Task", "Project" и "ProjectManager". Каждая задача должна содержать описание,
+статус (выполнена или нет) и срок выполнения.
+Проект должен включать в себя список задач и методы для добавления новой задачи,
+отметки задачи как выполненной и вывода списка всех задач.
+'''
+
+
+class Task:
+    def __init__(self, description, status, deadline):
+        self.description = description
+        self.status = status
+        self.deadline = deadline
+
+    def get_info(self):
+        print("Описание:", self.description, ". Cтатус:", self.status, ". Срок выполнения:", self.deadline)
+
+
+class Project:
+    def __init__(self, name):
+        self.name = name
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def done_or_not(self, task_description):
+        for task in self.tasks:
+            if task.description == task_description:
+                print(f"Задача {task_description} выполнена")
+            else:
+                print("Задача не выполнена")
+
+    def show_tasks(self):
+        for task in self.tasks:
+            print(task)
+
+
+class ProjectManager:
+    def __init__(self):
+        self.projects = []
+
+    def create_project(self, project_name):
+        project = Project(project_name)
+        self.projects.append(project)
+        print(f"Создан новый проект: '{project_name}'.")
+
+
+project = ProjectManager()
+project.create_project("ЗАДАНИЕ_1")
+n_1 = Task("New project for our company", "Active", "02.02.2024")
+n_1.get_info()
+
+# 2
+"""
+Создайте систему для управления бронированием билетов в авиакомпании. 
+Реализуйте классы "Passenger", "Ticket", "Flight" и "Airline ". Каждый пассажир должен иметь атрибуты, 
+такие как имя и фамилия. Билет должен содержать информацию о пассажире и маршруте полета. 
+Рейс должен включать в себя список зарезервированных билетов.
+Авиакомпания должна иметь методы для бронирования билета, отмены брони и отображения списка зарезервированных билетов.
+"""
+
+class Passenger:
+    def __init__(self, name, surname):
+        self.name = name
+        self.surname = surname
+
+    def get_info(self):
+        print("Информация о пассажире:", self.name, self.surname)
+
+
+class Ticket(Passenger):
+    def __init__(self, name, surname, flight_route):
+        super(Ticket, self).__init__(name, surname)
+        self.flight_route = flight_route
+
+    def get_info(self):
+        super().get_info()
+        print("Информация о маршруте полета:", self.flight_route)
+
+
+class Airline(Ticket):
+    def __init__(self, name, surname, flight_route):
+        super(Airline, self).__init__(name, surname, flight_route)
+        self.tickets = []
+
+    def add_ticket(self, ticket):
+        self.tickets.append(ticket)
+
+    def delete_ticket(self, ticket):
+        self.tickets.remove(ticket)
+
+    def get_info(self):
+        super().get_info()
+        print(self.tickets)
+
+    def list_ticket(self):
+        print("Список зарезервированных билетов:", self.tickets)
+
+
+class Flight(Airline):
+    def __init__(self, name, surname, flight_route):
+        super(Flight, self).__init__(name, surname, flight_route)
+        self.tickets = []
+
+    def add_ticket(self, ticket):
+        self.tickets.append(ticket)
+
+    def delete_ticket(self, ticket):
+        self.tickets.remove(ticket)
+
+    def list_ticket(self):
+        print("Список зарезервированных билетов:", self.tickets)
+
+
+inf = Airline('Vlad', "Ratnikov", 'From Belarus to Russia')
+inf.add_ticket("Ticket1")
+inf.get_info()
+inf.list_ticket()
+
+# 3
+"""
+Создать абстрактный класс «Alive». Определить наследуемые классы – «Fox», «Rabbit» и «Plant».
+Лисы едят кроликов. Кролики едят растения. Растение поглощают солнечный свет.
+Представители каждого класса могут умереть, если достигнут определенного возраста или для них не будет еды.
+Напишите виртуальные методы поедания и определения состояния живых существа
+(живые или нет, в зависимости от достижения предельного возраста и наличия еды (входной параметр)).
+"""
+
+from abc import ABC, abstractmethod
+
+
+class Alive(ABC):
+    def __init__(self, age):
+        self.age = age
+        self.alive = True
+
+    @abstractmethod
+    def eat(self, food_available):
+        pass
+
+    def check_status(self, food_available):
+        if self.age >= self.max_age or not food_available:
+            self.alive = False
+            print(f"{self.__class__.__name__} больше не живет.")
+        else:
+            print(f"{self.__class__.__name__} живет.")
+
+
+class Fox(Alive):
+    def __init__(self, age):
+        super().__init__(age)
+        self.max_age = 5
+
+    def eat(self, food_available):
+        if food_available:
+            print("Лиса ест кролика.")
+        else:
+            print("Для лисы нет еды.")
+
+
+class Rabbit(Alive):
+    def __init__(self, age):
+        super().__init__(age)
+        self.max_age = 3
+
+    def eat(self, food_available):
+        if food_available:
+            print("Кролик ест растение.")
+        else:
+            print("Для кролика нет еды.")
+
+
+class Plant(Alive):
+    def __init__(self, age):
+        super().__init__(age)
+        self.max_age = 2
+
+    def eat(self, food_available):
+        if food_available:
+            print("Растение поглащают солнечный свет.")
+        else:
+            print("Для растения нет солнечного света.")
+
+
+fox = Fox(age=3)
+rabbit = Rabbit(age=2)
+plants = Plant(age=1)
+
+fox.eat(food_available=True)
+fox.check_status(food_available=True)
+
+rabbit.eat(food_available=True)
+rabbit.check_status(food_available=True)
+
+plants.eat(food_available=False)
+plants.check_status(food_available=False)
+
+#ДОМАШНЯЯ РАБОТА(TASK_11)
+#1
+"""
+Напишите функцию fib, которая будет выводить последовательно каждое число Фиббоначи.
+"""
+def fib_generator(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+fib = list(fib_generator(10))
+print(fib)
+
+#2
+"""
+Напишите функцию simple, которая будет выводить поочерёдно простые числа
+от 2 до введённого числа n до вызова исключения.
+"""
+def simple(p):
+    current_number = 2
+    while current_number <= p:
+        if all(current_number % i != 0 for i in range(2, int(current_number**0.5) + 1)):
+            yield current_number
+        current_number += 1
+try:
+    for prime_number in simple(20):
+        print(prime_number, end=" ")
+except StopIteration as e:
+    pass
+
+#3
+"""
+Напишите генератор для вывода всех совершенных чисел до 1000000000.
+"""
+
+def generator(n):
+    number = 2
+    while number <= n:
+        divisors_sum = sum(i for i in range(1, number) if number % i == 0)
+        if divisors_sum == number:
+            yield number
+        number += 1
+
+for perfect_number in generator(1000000000):
+    print(perfect_number, end=" ")
+
+#4
+"""
+Исключить из строки группы символов, расположенные между первыми символами '{' и '}' вместе со скобками.
+Если нет символа '}', то исключить все символы до конца строки после '{'.
+Вывести символ, наиболее часто встречающийся в строке.
+"""
+from collections import Counter
+
+def process_string(our_str):
+     open = our_str.find('{')
+     close = our_str.find('}', open)
+
+     if open != -1 and close != -1:
+         new_str = our_str[:open] + our_str[close + 1:]
+     elif open != -1:
+         new_str = our_str[:open]
+     else:
+         new_str = our_str
+
+     new_our_str = new_str.replace(" ", "")
+     ct = Counter(new_our_str)
+     most_common = ct.most_common(1)
+
+     return new_str, most_common
+
+i_s = "Hello {don't} play {with} me."
+result, most_common = process_string(i_s)
+
+print("Строка:", result)
+print("Cимвол часто встречающийся в строке и сколько раз:", most_common)
+
+#6
+"""
+Используя list comprehension. Сгенерируйте список как показано ниже:
+
+1    1    1    1     1    1
+1    2    3    4     5    6
+1    3    6   10  15    21
+1   4   10   20  35    56
+1   6   21   56  126  252
+"""
+
+rows = 5
+cols = 6
+
+matrix = [[1 if j == 1 else 1 for j in range(cols)] for _ in range(rows)]
+
+for i in range(1, rows):
+    for j in range(1, cols):
+        matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
+
+for row in matrix:
+    print(row)
+
+
+#7
+"""
+Коля понял, что у многих из его знакомых есть несколько телефонных номеров
+и нельзя хранить только один из них. Он попросил доработать Вашу программу так, 
+чтобы можно было добавлять к существующему контакту новый номер или даже несколько номеров, 
+которые передаются через запятую. По запросу телефонного номера должен выводиться весь список номеров
+в порядке добавления, номера должны разделяться запятой. 
+Если у контакта нет телефонных номеров, должна выводиться строка "Не найдено".
+"""
+
+class Contact:
+    def __init__(self):
+        self.phone_numbers = []
+
+    def add_phone_numbers(self, numbers):
+        new_numbers = [number.strip() for number in numbers.split(",")]
+        self.phone_numbers.extend(new_numbers)
+
+    def get_phone_numbers(self):
+        if not self.phone_numbers:
+            return "Не найдено"
+        return ", ".join(self.phone_numbers)
+
+
+contacts = {}
+
+while True:
+    name = input("Введите имя контакта (или 'exit' для завершения): ")
+
+    if name.lower() == 'exit':
+        break
+
+    if name not in contacts:
+        contacts[name] = Contact()
+
+    action = input("Выберите действие: 1) Добавить номер, 2) Получить номера: ")
+
+    if action == '1':
+        numbers_to_add = input("Введите номер через запятую: ")
+        contacts[name].add_phone_numbers(numbers_to_add)
+    elif action == '2':
+        phone_numbers = contacts[name].get_phone_numbers()
+        print(f"Телефонные номера для контакта {name}: {phone_numbers}")
+    else:
+        print("Некорректное действие. Повторите ввод.")
+
